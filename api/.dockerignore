@@ -1,0 +1,4 @@
+node_modules
+api.http
+docker-compose.yml
+Dockerfile
