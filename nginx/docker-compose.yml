@@ -3,7 +3,7 @@ version: '3'
 services:
   reverse_proxy:
     image: nginx:stable-alpine
-    container_name: nginx-reverse-proxy
+    container_name: reverse-proxy
     ports:
       - "80:80"
     volumes:
