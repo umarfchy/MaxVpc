@@ -22,3 +22,12 @@ Compute Engine -> VM instances -> Create Instance
 to create VPC peering
 
 - documented on pic
+
+
+to create firewall rule 
+
+create firewall rule -> 
+
+
+allow-proxy-to-db-on-tpc-3306
+allow-api-to-proxy-tcp-80
