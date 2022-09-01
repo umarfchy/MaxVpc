@@ -1,13 +1,13 @@
 FROM node:16-alpine
 WORKDIR /app
-COPY ./package*.json .
+COPY ./package*.json ./
 COPY ./yarn.lock .
 RUN yarn install --frozen-lockfile 
 # RUN npm install --frozen-lockfile 
 
 COPY . .
 # 172.16.0.1 is the proxy for DB
-ENV DATABASE_URL "mysql://root:testpassword@172.16.0.1:80/testdb"
+ENV DATABASE_URL "mysql://root:testpassword@172.16.0.2:80/testdb"
 RUN npx prisma generate
 RUN yarn build
 # RUN npm run build
@@ -19,5 +19,5 @@ RUN npx prisma db seed
 
 # ENV PORT 3000
 EXPOSE 3000
-RUN node dist/index.js  
+CMD [ "node", "dist/index.js" ]  
 
