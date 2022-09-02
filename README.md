@@ -1,3 +1,5 @@
+[![Phase](https://img.shields.io/badge/version-1.0-green?style=flat-square&logo=#&logoColor=white)](#)
+
 # GCP demo: vpc peering & reverse proxy
 
 <br/>
