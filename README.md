@@ -96,7 +96,7 @@ To create VM, go to `Compute Engine`, select `VM Instances` followed by `Create 
 
 <br/>
 
-<img src="./assets/peering/peering-001.png" alt="peering-001.png"/>
+<!-- <img src="./assets/peering/peering-001.png" alt="peering-001.png"/> -->
 
 <br/>
 
