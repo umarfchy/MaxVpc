@@ -2,11 +2,17 @@
 
 # GCP demo: vpc peering & reverse proxy
 
+The repo shows how to establish VPC (Virtual Private ☁️) network peering in Google Cloud Platform (GCP 🚀) and using the nginx as a reverse proxy to interact with the server in the established network. In this demonstration, we'll use three vpc that are located on three diffrent geographical regions, each hosting a server (virtual machine) containing a single service. We'll connect the vpc's according to the following diagram (Figure 1)), establishing a communication between a api server and a database via a proxy service.
+
 <br/>
-<img src="./assets/diagram-001.png" alt="diagram-001.png"/>
+<figure><img src="./assets/diagram-001.png" alt="diagram-001.png"/>
+<figcaption align = "center">Fig.1 - A schematic representation of the demo</figcaption></figure>
 <br/>
 
-The repo shows how to establish VPC (Virtual Private ☁️) network peering in Google Cloud Platform (GCP 🚀) and using the nginx as a reverse proxy to interact with the server in the established network.
+Following table is a summary of the services that will be created in this demonstration. Throughout the tutorial we'll refer to this table.
+
+<br/>
+<h3 align="center"> Table 1 - A summary of the services in GCP</h3>
 
 | sl  | container name | vpc name  | vpc location |    network     |   gateway   | exposed port |
 | :-: | :------------: | :-------: | :----------: | :------------: | :---------: | :----------: |
@@ -14,14 +20,23 @@ The repo shows how to establish VPC (Virtual Private ☁️) network peering in 
 | 2.  |       db       |  vpc-db   |   us west1   | 192.168.0.0/24 | 192.168.0.1 |     3306     |
 | 3.  | reverse-proxy  | vpc-proxy | us central1  | 172.16.0.0/24  | 172.16.0.1  |      80      |
 
-### Creating VPC
+<br/>
 
-To create a vpc you need to do the following step:- Go to the `VPC network` from the menu and select `VPC networks` followed by `Create VPC network`. We'll create 3 vpc for our demo. They are `vpc-api`, `vpc-db` and `vpc-proxy`.
+> **Note**
+> If you're following along, throughout the demonstration, unless otherwise mentioned, keep every settings as default while creating any services in Google Cloud Platform (GCP) for the purpose of reproducibility.
 
-The process for creating each vpc is shown below:-
+<br/>
+
+### Creating VPC in GCP
+
+Let's start by creating our vpc. To create a vpc you need to do the following step:- Go to the `VPC network` from the menu and select `VPC networks` followed by `Create VPC network`. Now, we need to provide a name for the vpc. After that, we'll create a new subnet, providing a name of the subnet, region, and IPv4 range in CIDR notation. We'll allow the default firewall rules and click on the create button to finish off the VPC creaction process.
+
+We'll create 3 vpc for our demo. They are `vpc-api`, `vpc-db` and `vpc-proxy`. The subnet name will be follow this patter `<VPC_NAME>-subnet` and IPv4 range will be according to Table 1.
+
+The step by step process for creating each vpc is shown below,
 
 <details>
-<summary>Creating vpc-api</summary><br/>
+<summary>Creating <code>vpc-api</code></summary><br/>
 
 <img src="./assets/vpc/vpc-image-001.png" alt="vpc-image-001.png"/>
 <img src="./assets/vpc/vpc-image-002.png" alt="vpc-image-002.png"/>
@@ -31,7 +46,7 @@ The process for creating each vpc is shown below:-
 </details>
 
 <details>
-<summary>Creating vpc-db</summary><br/>
+<summary>Creating <code>vpc-db</code></summary><br/>
 <img src="./assets/vpc/vpc-image-005.png" alt="vpc-image-005.png"/>
 <img src="./assets/vpc/vpc-image-006.png" alt="vpc-image-006.png"/>
 <img src="./assets/vpc/vpc-image-007.png" alt="vpc-image-007.png"/>
@@ -40,7 +55,7 @@ The process for creating each vpc is shown below:-
 </details>
 
 <details>
-<summary>Creating vpc-proxy</summary><br/>
+<summary>Creating <code>vpc-proxy</code></summary><br/>
 
 <img src="./assets/vpc/vpc-image-009.png" alt="vpc-image-009.png"/>
 <img src="./assets/vpc/vpc-image-010.png" alt="vpc-image-010.png"/>
@@ -175,7 +190,7 @@ To create VM, go to `Compute Engine`, select `VM Instances` followed by `Create 
 <br/>
 
 <details>
-<summary>Testing with ping</summary><br/>
+<summary>Testing with telnet</summary><br/>
 
 <img src="./assets/telnet/telnet-test-001.png" alt="telnet-test-001.png"/>
 <img src="./assets/telnet/telnet-test-002.png" alt="telnet-test-002.png"/>
