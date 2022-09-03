@@ -145,17 +145,14 @@ vpc-proxy</code></summary><br/>
 
 ### Ping the server!
 
-Now, we can test the connection between the VPC using `ping` command which sends an ICMP ECHO_REQUEST to network hosts. 
-
+Now, we can test the connection between the VPC using `ping` command which sends an ICMP ECHO_REQUEST to network hosts. To test connection we'll require the IP address of the servers within each VPC. We can see obtain that by going the `VM Instances` panel in the `Compute Engine` option from the menu. Once we obtain the ip address, we can ssh into a each server and use `ping` to test the connection with another server that is in the peered network of that VPC. Here, first we'll ssh into the `vm-proxy`, type `ping <IP_OF_DESTINATION_SERVER>` in the command line to connect with the `vm-db` server. We'll repeat the process for `vm-db` to `vm-proxy`, `vm-proxy` to `vm-api` and `vm-api` to `vm-proxy` in order to test those connections. If connection gets established it log stats in the cli.
 
 <details>
-<summary>Testing with ping</summary><br/>
-
+<summary>Testing with <code>ping</code></summary><br/>
 <img src="./assets/ping/ping-test-001.png" alt="ping-test-001.png"/>
 <img src="./assets/ping/ping-test-002.png" alt="ping-test-002.png"/>
 <img src="./assets/ping/ping-test-003.png" alt="ping-test-003.png"/>
 <img src="./assets/ping/ping-test-004.png" alt="ping-test-004.png"/>
-
 </details>
 
 <br/>
