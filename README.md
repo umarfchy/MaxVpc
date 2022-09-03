@@ -154,13 +154,14 @@ Now, we can test the connection between the VPC using `ping` command which sends
 <img src="./assets/ping/ping-test-003.png" alt="ping-test-003.png"/>
 <img src="./assets/ping/ping-test-004.png" alt="ping-test-004.png"/>
 </details>
-
 <br/>
 
-### Container setup
+### Service Container Setup
+Now, we can ssh into each VM server and start creating the services they we'll be hosting. To ease the process, this repo contains all the necessary files for docker containers that will act as service inside each VM. 
 
+The step by step process for creating service containers is shown below,
 <details>
-<summary>Starting db container</summary><br/>
+<summary>Creating db container</summary><br/>
 
 <img src="./assets/container-setup/vm-db/container-db-001.png" alt="container-db-001.png"/>
 <img src="./assets/container-setup/vm-db/container-db-002.png" alt="container-db-002.png"/>
@@ -173,7 +174,7 @@ Now, we can test the connection between the VPC using `ping` command which sends
 </details>
 
 <details>
-<summary>Starting proxy container</summary><br/>
+<summary>Creating proxy container</summary><br/>
 
 <img src="./assets/container-setup/vm-proxy/container-proxy-001.png" alt="container-proxy-001.png"/>
 <img src="./assets/container-setup/vm-proxy/container-proxy-002.png" alt="container-proxy-002.png"/>
@@ -185,7 +186,7 @@ Now, we can test the connection between the VPC using `ping` command which sends
 </details>
 
 <details>
-<summary>Starting api container</summary><br/>
+<summary>Creating api container</summary><br/>
 
 <img src="./assets/container-setup/vm-api/container-api-001.png" alt="container-api-001.png"/>
 <img src="./assets/container-setup/vm-api/container-api-002.png" alt="container-api-002.png"/>
