@@ -14,11 +14,11 @@ the following table is a summary of the services that will be created in this de
 <br/>
 <h3 align="center"> Table 1 - A summary of the services in GCP</h3>
 
-| sl  | container name | VPC name  | VPC location |    network     |   gateway   | exposed port |
-| :-: | :------------: | :-------: | :----------: | :------------: | :---------: | :----------: |
-| 1.  |      api       |  vpc-api  |   us east1   |  10.10.0.0/24  |  10.10.0.1  |     3000     |
-| 2.  |       db       |  vpc-db   |   us west1   | 192.168.0.0/24 | 192.168.0.1 |     3306     |
-| 3.  | reverse-proxy  | vpc-proxy | us central1  | 172.16.0.0/24  | 172.16.0.1  |      80      |
+| sl |  VPC Name | VPC Location |  VPC Subnet Name |  IPv4 Network  |  VM Name | VM IP Address | Container name | Exposed Port |
+|:--:|:---------:|:------------:|:----------------:|:--------------:|:--------:|:-------------:|:--------------:|:------------:|
+|  1 |  vpc-api  |   us east1   |  vpc-api-subnet  |  10.10.0.0/24  |  vm-api  |   10.10.0.2   |       api      |     3000     |
+|  2 |   vpc-db  |   us west1   |   vpc-db-subnet  | 192.168.0.0/24 |   vm-db  |  192.168.0.2  |       db       |     3306     |
+|  3 | vpc-proxy |  us central1 | vpc-proxy-subnet |  172.16.0.0/24 | vm-proxy |   172.16.0.2  |  reverse-proxy |      80      |
 
 <br/>
 
