@@ -65,11 +65,12 @@ The step by step process for creating each vpc is shown below,
 </details>
 <br/>
 
+### Creating VM in GCP
+Once we're done with creating vpc, we'll start creating our servers (VM). To create VM, go to `Compute Engine` from menu, select `VM Instances` followed by `Create Instance`. We'll provide a name, select a region and stick to the default zone of that region. Then go the `Networking` settings of the `Advanced options`. Now, specify a new network interface by selecting a network and a subnetwork. Here, we'll create a 3 VM for each VPC namely `vm-api`, `vm-proxy` and `vm-db`. The region will be same to corresponding VPC of each VM. The network and subnet work will be the name of the VPC and it's subnet for each VM respectively. We'll complete the process by clicking on the create button. 
+
 <br/>
 
-To create VM, go to `Compute Engine`, select `VM Instances` followed by `Create Instance`.
-
-<br/>
+The step by step process for creating each vm is shown below,
 
 <details>
 <summary>Creating vm-api</summary><br/>
@@ -112,6 +113,8 @@ To create VM, go to `Compute Engine`, select `VM Instances` followed by `Create 
 <br/>
 
 <!-- <img src="./assets/peering/peering-001.png" alt="peering-001.png"/> -->
+
+
 
 <br/>
 
