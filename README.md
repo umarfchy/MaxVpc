@@ -66,7 +66,8 @@ The step by step process for creating each vpc is shown below,
 <br/>
 
 ### Creating VM in GCP
-Once we're done with creating vpc, we'll start creating our servers (VM). To create VM, go to `Compute Engine` from menu, select `VM Instances` followed by `Create Instance`. We'll provide a name, select a region and stick to the default zone of that region. Then go the `Networking` settings of the `Advanced options`. Now, specify a new network interface by selecting a network and a subnetwork. Here, we'll create a 3 VM for each VPC namely `vm-api`, `vm-proxy` and `vm-db`. The region will be same to corresponding VPC of each VM. The network and subnet work will be the name of the VPC and it's subnet for each VM respectively. We'll complete the process by clicking on the create button. 
+
+Once we're done with creating vpc, we'll start creating our servers (VM). To create VM, go to `Compute Engine` from menu, select `VM Instances` followed by `Create Instance`. We'll provide a name, select a region and stick to the default zone of that region. Then go the `Networking` settings of the `Advanced options`. Now, specify a new network interface by selecting a network and a subnetwork. Here, we'll create a 3 VM for each VPC namely `vm-api`, `vm-proxy` and `vm-db`. The region will be same to corresponding VPC of each VM. The network and subnet work will be the name of the VPC and it's subnet for each VM respectively. We'll complete the process by clicking on the create button.
 
 <br/>
 
@@ -114,12 +115,14 @@ The step by step process for creating each vm is shown below,
 
 <!-- <img src="./assets/peering/peering-001.png" alt="peering-001.png"/> -->
 
-
-
+Now, we have a three VM servers that are on three different VPC. Therefore, these servers won't be able to communicate with each other. To establish a connection between two VPC's we need to develop a VPC peering connection. As this is a bidirectional connection, we need to establish the connection both ways e.g. for VPC A and VPC B, we'll create a peering network from VPC A to VPC B and then also, create another peering network from VPC B to VPC A. For the demo, we'll create connection between `vpc-api` & `vpc-proxy` as well as `vpc-proxy` & `vpc-db`. We'll not create a connection between `vpc-api` & `vpc-db` as the api service will not directly communicate with the db rather use the proxy server to establish that communication.
 <br/>
 
+The step by step process for creating peering connection is shown below,
+
 <details>
-<summary>Connecting vpc-api and vpc-proxy</summary><br/>
+<summary>Connecting <code>vpc-api</code> and <code>vpc-proxy</code></summary>
+<br/>
 
 <img src="./assets/peering/peering-002.png" alt="peering-002.png"/>
 <img src="./assets/peering/peering-003.png" alt="peering-003.png"/>
@@ -129,11 +132,29 @@ The step by step process for creating each vm is shown below,
 </details>
 
 <details>
-<summary>Connecting vpc-db and vpc-proxy</summary><br/>
+<summary>Connecting <code>vpc-db</code> and <code>
+vpc-proxy</code></summary><br/>
 
 <img src="./assets/peering/peering-006.png" alt="peering-006.png"/>
 <img src="./assets/peering/peering-007.png" alt="peering-007.png"/>
 <img src="./assets/peering/peering-008.png" alt="peering-008.png"/>
+
+</details>
+
+<br/>
+
+### Ping the server!
+
+Now, we can test the connection between the VPC using `ping` command which sends an ICMP ECHO_REQUEST to network hosts. 
+
+
+<details>
+<summary>Testing with ping</summary><br/>
+
+<img src="./assets/ping/ping-test-001.png" alt="ping-test-001.png"/>
+<img src="./assets/ping/ping-test-002.png" alt="ping-test-002.png"/>
+<img src="./assets/ping/ping-test-003.png" alt="ping-test-003.png"/>
+<img src="./assets/ping/ping-test-004.png" alt="ping-test-004.png"/>
 
 </details>
 
@@ -175,18 +196,6 @@ The step by step process for creating each vm is shown below,
 <img src="./assets/container-setup/vm-api/container-api-004.png" alt="container-api-004.png"/>
 <img src="./assets/container-setup/vm-api/container-api-005.png" alt="container-api-005.png"/>
 <img src="./assets/container-setup/vm-api/container-api-006.png" alt="container-api-006.png"/>
-
-</details>
-
-<br/>
-
-<details>
-<summary>Testing with ping</summary><br/>
-
-<img src="./assets/ping/ping-test-001.png" alt="ping-test-001.png"/>
-<img src="./assets/ping/ping-test-002.png" alt="ping-test-002.png"/>
-<img src="./assets/ping/ping-test-003.png" alt="ping-test-003.png"/>
-<img src="./assets/ping/ping-test-004.png" alt="ping-test-004.png"/>
 
 </details>
 
