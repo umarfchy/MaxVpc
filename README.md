@@ -2,7 +2,7 @@
 
 # GCP demo: VPC peering & reverse proxy
 
-The repo shows how to establish VPC (Virtual Private ☁️) network-peering in Google Cloud Platform (GCP 🚀) and use the nginx as a reverse proxy to interact with the server in the established network. In this demonstration, we'll use three VPCs that are located in three different geographical regions, each hosting a server (virtual machine) containing a single service. We'll connect the VPCs according to the following diagram (Figure 1)), establishing a communication between an api server and a database via a proxy service.
+The repo shows how to establish VPC (Virtual Private ☁️) network-peering in Google Cloud Platform (GCP 🚀) and use the Nginx as a reverse proxy to interact with the server in the established network. In this demonstration, we'll use three VPCs that are located in three different geographical regions, each hosting a server (virtual machine) containing a single service. We'll connect the VPCs according to the following diagram (Figure 1)), establishing communication between an API server and a database via a proxy service.
 
 <br/>
 <figure><img src="./assets/diagram-001.png" alt="diagram-001.png"/>
@@ -115,7 +115,7 @@ The step-by-step process for creating each VM is shown below,
 
 <!-- <img src="./assets/peering/peering-001.png" alt="peering-001.png"/> -->
 
-Now, we have three VM servers that are on three different VPCs. Therefore, these servers won't be able to communicate with each other. To establish a connection between two VPC's we need to develop a VPC peering connection. As this is a bidirectional connection, we need to establish the connection both ways e.g. for VPC A and VPC B, we'll create a peering network from VPC A to VPC B and then also, create another peering network from VPC B to VPC A. For the demo, we'll create connection between `vpc-api` & `vpc-proxy` as well as `vpc-proxy` & `vpc-db`. We'll not create a connection between `vpc-api` & `vpc-db` as the api service will not directly communicate with the db rather use the proxy server to establish that communication.
+Now, we have three VM servers that are on three different VPCs. Therefore, these servers won't be able to communicate with each other. To establish a connection between two VPC's we need to develop a VPC peering connection. As this is a bidirectional connection, we need to establish the connection both ways e.g. for VPC A and VPC B, we'll create a peering network from VPC A to VPC B and then also, create another peering network from VPC B to VPC A. For the demo, we'll create a connection between `vpc-api` & `vpc-proxy` as well as `vpc-proxy` & `vpc-db`. We'll not create a connection between `vpc-api` & `vpc-db` as the API service will not directly communicate with the DB rather use the proxy server to establish that communication.
 <br/>
 
 The step-by-step process for creating a peering connection is shown below,
@@ -145,7 +145,7 @@ vpc-proxy</code></summary><br/>
 
 ### Ping the server!
 
-Now, we can test the connection between the VPC using `ping` command which sends an ICMP ECHO_REQUEST to network hosts. To test connection we'll require the IP address of the servers within each VPC. We can see obtain that by going to the `VM Instances` panel in the `Compute Engine` option from the menu. Once we obtain the IP address, we can ssh into each server and use `ping` to test the connection with another server that is in the peered network of that VPC. Here, first, we'll ssh into the `vm-proxy`, type `ping <IP_OF_DESTINATION_SERVER>` in the command line to connect with the `vm-db` server. We'll repeat the process for `vm-db` to `vm-proxy`, `vm-proxy` to `vm-api` and `vm-api` to `vm-proxy` to test those connections. If a connection gets established, it will log statistics in the cli.
+Now, we can test the connection between the VPC using `ping` command which sends an ICMP ECHO_REQUEST to network hosts. To test the connection we'll require the IP address of the servers within each VPC. We can see obtain that by going to the `VM Instances` panel in the `Compute Engine` option from the menu. Once we obtain the IP address, we can ssh into each server and use `ping` to test the connection with another server that is in the peered network of that VPC. Here, first, we'll ssh into the `vm-proxy`, and type `ping <IP_OF_DESTINATION_SERVER>` in the command line to connect with the `vm-db` server. We'll repeat the process for `vm-db` to `vm-proxy`, `vm-proxy` to `vm-api` and `vm-api` to `vm-proxy` to test those connections. If a connection gets established, it will log statistics in the cli.
 
 <details>
 <summary>Testing with <code>ping</code></summary><br/>
@@ -158,7 +158,7 @@ Now, we can test the connection between the VPC using `ping` command which sends
 
 ### Testing with Telnet
 
-In our architecture (Fig 1.), the `vm-proxy` server will communicate with the `vm-db` server using port 3306. Similarly, the `vm-api` server will communicate with the `vm-proxy` server on port 80. We can use telnet to check if respective servers are listening to the intended port. We can do so by running `telnet <DESTINATION_IP> <DESTINATION_PORT>` on cli which will use TCP protocol to connect to the destination server. Now, using telnet will try to connect to db from proxy server, it will just keep on try without ever establishing the connection. 
+In our architecture (Fig 1.), the `vm-proxy` server will communicate with the `vm-db` server using port 3306. Similarly, the `vm-api` server will communicate with the `vm-proxy` server on port 80. We can use telnet to check if respective servers are listening to the intended port. We can do so by running `telnet <DESTINATION_IP> <DESTINATION_PORT>` on cli which will use TCP protocol to connect to the destination server. Now, using telnet will try to connect to DB from the proxy server, it will just keep on trying without ever establishing the connection. 
 
 <details>
 <summary>Testing with telnet</summary><br/>
@@ -179,7 +179,7 @@ The reason for the `telnet`'s failure is the infamous `Firewall`!
 
 ### Providing Firewall Access
 
-To allow TCP connection on a certain port to a `VM` inside a `VPC`, we need to allow the ingress to that port on the firewall. The enable the firewall, select the `Firewall` in the `VPC network` option in the menu. Click on `CREATE FIREWALL RULE` and provide a name. Now select the network. The network will be the `VPC` that you want to connect to. Select `Targets` as `All instances in the network`. Now, provide the source IPv4 range e.g. as the proxy server will try to connect to the db server, this range will be the proxy server's IP or the network in which the server is hosted. Now, select the `Specified protocols and ports` radio button, check the `TCP` and type the desired port in the port field e.g. for db server it will be `3306`. Click on the create button to finish up the process. 
+To allow TCP connection on a certain port to a `VM` inside a `VPC`, we need to allow the ingress to that port on the firewall. The enable the firewall, select the `Firewall` in the `VPC network` option in the menu. Click on `CREATE FIREWALL RULE` and provide a name. Now select the network. The network will be the `VPC` that you want to connect to. Select `Targets` as `All instances in the network`. Now, provide the source IPv4 range e.g. as the proxy server will try to connect to the DB server, this range will be the proxy server's IP or the network in which the server is hosted. Now, select the `Specified protocols and ports` radio button, check the `TCP` and type the desired port in the port field e.g. for DB server it will be `3306`. Click on the create button to finish up the process. 
       
 The step-by-step process for creating a firewall rule is shown below,
 
@@ -200,7 +200,7 @@ The step-by-step process for creating a firewall rule is shown below,
 
 </details>
 
-Now, that we've allowed ingress for the db server on port 3306 from the proxy server, and port 80 for the proxy server from the api server, running the telnet command mentioned previously will establish a successful connection.   
+Now, that we've allowed ingress for the DB server on port 3306 from the proxy server, and port 80 for the proxy server from the API server, running the telnet command mentioned previously will establish a successful connection.   
 
 
 ### Service Container Setup
@@ -220,7 +220,7 @@ Afterward, we'll clone this repository to each VM. We'll move to the directory d
 The step-by-step process for creating service containers is shown below,
 
 <details>
-<summary>Creating db container</summary><br/>
+<summary>Creating DB container</summary><br/>
 
 <img src="./assets/container-setup/vm-db/container-db-001.png" alt="container-db-001.png"/>
 <img src="./assets/container-setup/vm-db/container-db-002.png" alt="container-db-002.png"/>
@@ -260,7 +260,7 @@ The step-by-step process for creating service containers is shown below,
 
 ### Testing the Api
 
-Once all the containers are up and running we can test the api using `curl` command from the cli of `vm-api`. Here, the `api` service is making requests to the `proxy` service for the data. As the `proxy` service gets the request it forwards the request to the `db` service which in turn responds depending on the query. This response from the `db` service then goes to the `proxy` service which in turn sends the response to the `api` service. You see the results below,
+Once all the containers are up and running we can test the API using `curl` command from the cli of `vm-api`. Here, the `api` service is making requests to the `proxy` service for the data. As the `proxy` service gets the request it forwards the request to the `db` service which in turn responds depending on the query. This response from the `db` service then goes to the `proxy` service which in turn sends the response to the `api` service. You see the results below,
 
 <details>
 <summary>Result of testing the api</summary><br/>
@@ -274,14 +274,14 @@ Once all the containers are up and running we can test the api using `curl` comm
 
 </details>
 
-We can see successful response from the server which suggest the overall communication was successful. This marks the end of this tutorial.
+We can see a successful response from the server which suggests the overall communication was successful. This marks the end of this tutorial.
 
 
 <br/>
 
 Thanks for reading.
 
-<!-- to create VPC peering
+<!-- to create a VPC peering
 
 - documented on pic
 
